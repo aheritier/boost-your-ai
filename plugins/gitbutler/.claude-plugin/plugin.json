@@ -1,0 +1,9 @@
+{
+  "name": "gitbutler",
+  "description": "GitButler CLI (but) for safe git history manipulation. Use when user wants to edit commits, squash, rebase, fix commit messages, undo operations, or work with virtual branches using GitButler instead of raw git commands.",
+  "version": "0.0.1",
+  "author": {
+    "name": "Arnaud Héritier",
+    "url": "https://github.com/aheritier"
+  }
+}

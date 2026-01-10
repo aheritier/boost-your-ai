@@ -1,0 +1,20 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "boost-your-ai",
+  "version": "0.0.1",
+  "description": "Custom skills for boosting AI-assisted development workflows",
+  "owner": {
+    "name": "Arnaud Héritier",
+    "url": "https://github.com/aheritier"
+  },
+  "plugins": [
+    {
+      "name": "gitbutler",
+      "description": "GitButler CLI (but) for safe git history manipulation. Use when user wants to edit commits, squash, rebase, fix commit messages, undo operations, or work with virtual branches using GitButler instead of raw git commands.",
+      "version": "0.0.1",
+      "source": "./plugins/gitbutler",
+      "category": "development",
+      "homepage": "https://github.com/aheritier/boost-your-ai/tree/main/plugins/gitbutler"
+    }
+  ]
+}
