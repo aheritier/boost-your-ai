@@ -10,9 +10,44 @@ git branch --show-current
 
 | Command Type | On gitbutler/workspace |
 |--------------|------------------------|
-| Read-only (`git log`, `git diff`) | ✅ Safe |
-| `git commit`, `git rebase` | ❌ Use `but` instead |
-| `git reset`, `git checkout` | ❌ Use `but` instead |
+| Read-only (`git log`, `git diff`, `git show`) | ✅ Safe |
+| Has `but` equivalent (commit, rebase, reset) | ⚠️ Prefer `but` |
+| No `but` equivalent (cherry-pick, stash, tag) | ✅ Use `git` |
+| Destructive (`reset --hard`, `push --force`) | ⚠️ Create snapshot first |
+
+---
+
+## Native Git Commands (No `but` Equivalent)
+
+Use these git commands freely in GitButler workspaces:
+
+```bash
+# Pick specific commits from other branches
+git cherry-pick <sha>
+git cherry-pick <sha1>..<sha2>  # Range of commits
+
+# Temporary storage
+git stash                       # Stash changes
+git stash pop                   # Restore stashed changes
+git stash list                  # List stashes
+
+# Release management
+git tag v1.0.0                  # Create tag
+git tag -a v1.0.0 -m "Release"  # Annotated tag
+git tag -l                      # List tags
+
+# Reverse a commit (creates new commit)
+git revert <sha>
+git revert <sha> --no-commit    # Stage reversal without committing
+
+# Investigation
+git blame <file>                # Line-by-line authorship
+git bisect start                # Binary search for bug
+
+# Remote management
+git remote -v                   # List remotes
+git remote add <name> <url>     # Add remote
+```
 
 ---
 

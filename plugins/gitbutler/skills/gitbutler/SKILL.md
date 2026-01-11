@@ -16,14 +16,24 @@ git branch --show-current
 ```
 
 **If the result is `gitbutler/workspace`:**
-- [OK] USE `but` commands (this skill)
-- [AVOID] raw `git commit`, `git rebase`, `git reset`, `git checkout`
-- [INFO] Read-only git commands are safe: `git log`, `git diff`, `git show`, `git status`
+- [PREFER] `but` commands when equivalent exists (commit, squash, undo, amend)
+- [OK] Native git for operations `but` doesn't cover (cherry-pick, stash, tag, revert, blame)
+- [CAUTION] Some git commands can corrupt virtual branch state (see below)
 
-**Why?** GitButler manages virtual branches through its workspace. Using raw git commands can:
-- Create commits outside GitButler's tracking
-- Corrupt the virtual branch state
-- Require manual recovery with `git reset --soft`
+**Git Command Guidelines:**
+
+| Prefer `but` | Use `git` freely | Use `git` with caution |
+|--------------|------------------|------------------------|
+| `but commit` over `git commit` | `git cherry-pick` | `git reset --hard` |
+| `but rub` over `git rebase -i` | `git stash` | `git push --force` |
+| `but undo` over `git reset` | `git tag` | `git rebase` |
+| `but absorb` for amending | `git revert` | `git clean` |
+| `but describe` for messages | `git blame`, `git bisect` | `git checkout <file>` |
+
+**Why prefer `but` when available?** GitButler manages virtual branches through its workspace:
+- `but` commands maintain virtual branch tracking
+- `but undo` and oplog provide safer recovery
+- Some raw git commands can corrupt the virtual branch state
 
 **Quick detection pattern:**
 ```bash

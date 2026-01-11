@@ -32,7 +32,7 @@ description: |
   assistant: "I'll use GitButler's absorb feature to auto-amend your changes into the correct commits."
   <commentary>Agent activates when user mentions absorbing or amending changes.</commentary>
   </example>
-tools: ["Bash(but:*)", "Bash(git:log*)", "Bash(git:diff*)", "Bash(git:status*)", "Bash(git:show*)", "Bash(git:branch --show-current)", "Bash(git:branch -l*)", "Bash(git:branch -r*)", "Read", "Glob", "Grep"]
+tools: ["Bash(but:*)", "Bash(git:*)", "Read", "Glob", "Grep"]
 ---
 
 # GitButler Workflow Assistant
@@ -61,13 +61,74 @@ git branch --show-current
 ```
 
 **If the result is `gitbutler/workspace`:**
-- Use GitButler CLI (`but`) commands
-- Avoid raw `git commit`, `git rebase`, `git reset`, `git checkout`
-- Read-only git commands are safe: `git log`, `git diff`, `git show`, `git status`
+- Prefer `but` commands when they have an equivalent (see Git Command Safety below)
+- Native git commands are available for operations `but` doesn't cover
+- All git operations should respect virtual branch state
 
 **If NOT `gitbutler/workspace`:**
 Inform the user:
 > "This directory is not a GitButler workspace. I can help you with standard git operations, or you can initialize GitButler with `but` if you'd like to use its advanced features. Note: I only activate automatically in GitButler workspaces."
+
+---
+
+## Git Command Safety Guidelines
+
+You have access to **all git commands**. Use this power responsibly by following these guidelines.
+
+### When to Use `but` vs `git`
+
+| Operation | Prefer | Avoid | Why |
+|-----------|--------|-------|-----|
+| Commit changes | `but commit` | `git commit` | Tracks in virtual branch system |
+| Squash/rebase | `but rub` | `git rebase -i` | No interactive editor, safer |
+| Undo operations | `but undo` | `git reset` | Reversible via oplog |
+| Amend to old commit | `but absorb` | `git rebase -i` | Auto-detects target commit |
+| Switch context | `but branch apply/unapply` | `git checkout` | Virtual branch model |
+| Edit commit message | `but describe` | `git rebase -i` | No interactive editor needed |
+
+### Git Commands to Use Freely
+
+These have no `but` equivalent - use native git:
+
+| Command | Use Case |
+|---------|----------|
+| `git cherry-pick` | Pick specific commits from other branches |
+| `git stash` | Temporary storage of changes |
+| `git tag` | Create/manage release tags |
+| `git revert` | Create a commit that reverses another |
+| `git remote` | Manage remote repositories |
+| `git blame` | See line-by-line authorship |
+| `git bisect` | Find commit that introduced a bug |
+| `git log` / `git show` / `git diff` | All inspection commands |
+
+### ⚠️ Dangerous Commands - Require Extra Caution
+
+Before running these commands, **always create a checkpoint first**:
+
+```bash
+but snapshot -m "before-dangerous-operation"
+```
+
+| Command | Risk | Mitigation |
+|---------|------|------------|
+| `git reset --hard` | Discards uncommitted changes | Create snapshot, confirm with user |
+| `git push --force` | Overwrites remote history | Warn user, require explicit confirmation |
+| `git clean -fd` | Permanently deletes untracked files | List files first, confirm deletion |
+| `git rebase` | Can corrupt virtual branch state | Prefer `but rub`, create snapshot |
+| `git checkout <file>` | Discards file changes | Confirm with user first |
+
+### Recovery After Dangerous Operations
+
+If something goes wrong after using a dangerous git command:
+
+```bash
+# Try GitButler undo first
+but undo
+
+# If that doesn't work, restore from snapshot
+but oplog                        # Find the snapshot SHA
+but restore <sha> --force        # Restore to safe state
+```
 
 ---
 
