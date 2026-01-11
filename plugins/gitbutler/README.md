@@ -66,6 +66,32 @@ The plugin provides these commands for common workflows:
 - "Undo my last git operation"
 - "Help me work on two features at the same time"
 
+### Git Assistant Agent
+
+The plugin includes an intelligent agent that handles git-related conversations naturally. Unlike slash commands (which you invoke explicitly), the agent activates automatically when you discuss git operations in a GitButler workspace.
+
+**Automatic Activation:**
+The agent triggers automatically when you're on a `gitbutler/workspace` branch and discuss:
+- Committing changes
+- Cleaning up commit history
+- Undoing mistakes
+- Organizing work across branches
+
+**Example Conversations:**
+- "I've made some changes, help me commit them properly"
+- "Clean up my commit history - I have too many small commits"
+- "Undo my last change, I made a mistake"
+- "I'm working on two features at once, help me organize"
+
+**Behavior:**
+The agent follows a "suggest and confirm" pattern:
+1. Analyzes your current GitButler state
+2. Suggests appropriate actions with explanations
+3. Waits for your confirmation before executing
+4. Reports results and suggests next steps
+
+**Note:** In non-GitButler repositories, the agent must be invoked manually.
+
 ## Documentation
 
 - **[SKILL.md](skills/gitbutler/SKILL.md)** - Main skill documentation with command reference
