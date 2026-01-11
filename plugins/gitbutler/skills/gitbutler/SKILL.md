@@ -1,13 +1,13 @@
 ---
 name: gitbutler
-description: GitButler CLI (but) for safe git history manipulation. Use when user wants to edit commits, squash, rebase, fix commit messages, undo operations, or work with virtual branches using GitButler instead of raw git commands.
+description: This skill should be used when the user asks about GitButler, "but" commands (but status, but absorb, but rub, but commit, but undo, but snapshot), working in a gitbutler/workspace branch, safe git history manipulation, editing commits without rebase -i, squashing commits, fixing commit messages, undoing git operations, or using virtual branches. Use GitButler CLI instead of raw git commands when gitbutler/workspace is detected.
 ---
 
 # GitButler CLI Guide
 
 GitButler (`but`) is a modern Git client that makes history manipulation safe and reversible.
 
-## ⚠️ IMPORTANT: Detect GitButler Workspace
+## [IMPORTANT] Detect GitButler Workspace
 
 **Before running any git commands, check if GitButler is active:**
 
@@ -16,9 +16,9 @@ git branch --show-current
 ```
 
 **If the result is `gitbutler/workspace`:**
-- ✅ USE `but` commands (this skill)
-- ❌ AVOID raw `git commit`, `git rebase`, `git reset`, `git checkout`
-- ℹ️ Read-only git commands are OK: `git log`, `git diff`, `git show`, `git status`
+- [OK] USE `but` commands (this skill)
+- [AVOID] raw `git commit`, `git rebase`, `git reset`, `git checkout`
+- [INFO] Read-only git commands are safe: `git log`, `git diff`, `git show`, `git status`
 
 **Why?** GitButler manages virtual branches through its workspace. Using raw git commands can:
 - Create commits outside GitButler's tracking
@@ -58,10 +58,10 @@ but oplog               # View operation history (time-travel checkpoints)
 **Status output explained:**
 ```
 ╭┄00 [Unassigned Changes]
-┊   g0 M calculator.py 🔒 8ebedce   ← File ID, status, dependency
+┊   g0 M calculator.py [LOCKED] 8ebedce   ← File ID, status, dependency
 ┊
-┊╭┄al [calculator-feature]          ← Branch ID
-┊●   abc1234 Commit message         ← Commit
+┊╭┄al [calculator-feature]                ← Branch ID
+┊●   abc1234 Commit message               ← Commit
 ├╯
 ┊
 ┴ 6e7da9e (common base) [origin/main]
@@ -69,7 +69,7 @@ but oplog               # View operation history (time-travel checkpoints)
 
 - `g0`, `h0`: File/change IDs (use with `but rub`)
 - `al`, `ut`: Branch IDs
-- `🔒 <sha>`: GitButler detected this change belongs to that commit
+- `[LOCKED] <sha>`: GitButler detected this change belongs to that commit
 - `M`, `A`, `D`: Modified, Added, Deleted
 
 ---
@@ -101,7 +101,7 @@ When you modify code, GitButler detects which commit introduced those lines:
 ```bash
 # Edit a file, then check status
 but status
-# Shows: g0 M file.py 🔒 abc123  ← Detected dependency!
+# Shows: g0 M file.py [LOCKED] abc123  ← Detected dependency!
 
 # Auto-amend to the correct commit
 but absorb
@@ -188,7 +188,7 @@ but commit <branch> -m "message" --only # Commit ONLY assigned changes
 but commit -c -m "message"              # Create new branch and commit
 ```
 
-⚠️ **Important**: Without `--only`, `but commit` includes ALL uncommitted changes!
+[CAUTION] **Important**: Without `--only`, `but commit` includes ALL uncommitted changes!
 
 ---
 
@@ -229,7 +229,7 @@ but describe <new-sha> -m "Combined" # Update message
 ### Amend change to old commit
 ```bash
 # Edit the file, then:
-but status                           # Check for 🔒 dependency
+but status                           # Check for [LOCKED] dependency
 but absorb                           # Auto-amend
 ```
 
@@ -243,79 +243,46 @@ but restore <sha> --force            # Go back in time
 
 ---
 
-## Claude Code Hooks Integration
+## Error Handling
 
-GitButler provides hooks that integrate with Claude Code to automatically manage commits during AI-assisted development sessions.
+### Common Errors and Recovery
 
-### Available Hooks
+| Error | Cause | Recovery |
+|-------|-------|----------|
+| `but status` fails | GitButler not initialized | Run `but` to initialize, or check `.git/gitbutler` directory |
+| "Branch not found" | Virtual branch deleted/renamed | Run `but status` to list available branches |
+| "Conflict detected" | Merge conflict during operation | Resolve conflicts in files, then `but commit` |
+| "Uncommitted changes" | Operation blocked by dirty state | Commit or stash changes first |
+| Command hangs | Large repo or network issue | Wait, or Ctrl+C and retry |
 
-| Hook | Trigger | Command | Purpose |
-|------|---------|---------|---------|
-| **PreToolUse** | Before Edit/MultiEdit/Write | `but claude pre-tool` | Prepare context |
-| **PostToolUse** | After code modifications | `but claude post-tool` | Auto-assign changes |
-| **Stop** | When agent session ends | `but claude stop` | Commit session work |
+### Recovery Commands
 
-### Configuration
-
-Add hooks to your Claude settings file:
-
-**User-level** (`~/.claude/settings.json`):
-```json
-{
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Edit|MultiEdit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "but claude pre-tool"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Edit|MultiEdit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "but claude post-tool"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "but claude stop"
-          }
-        ]
-      }
-    ]
-  }
-}
+```bash
+but undo                    # Undo last operation (safe, always works)
+but oplog                   # View all operations for recovery points
+but restore <sha> --force   # Restore to any previous state
+but snapshot list           # List named checkpoints
 ```
 
-**Project-level** (`.claude/settings.json` or `.claude/settings.local.json` for uncommitted)
+### When to Use `undo` vs `restore`
 
-### Benefits
+- **`but undo`**: Quick single-step rollback. Use when the last operation went wrong.
+- **`but restore`**: Time-travel to any point. Use when you need to go back multiple operations or to a named checkpoint.
 
-- **Auto-assigns changes**: Changes from concurrent Claude sessions go to appropriate branches
-- **Generates commit messages**: Uses user prompts for meaningful commit messages
-- **Eliminates manual git**: No need for manual `but commit` during sessions
-- **Works with virtual branches**: Seamlessly integrates with stacked/virtual branch workflows
+[INFO] The oplog tracks everything, including undos. You can always recover!
 
-### How It Works
+---
 
-1. **PreToolUse**: Before Claude edits a file, GitButler captures context
-2. **PostToolUse**: After modifications, changes are automatically assigned to the current branch
-3. **Stop**: When the session ends, GitButler commits all pending changes with a generated message
+## Claude Code Hooks Integration
 
-For detailed setup instructions, see `references/hooks.md`.
+GitButler integrates with Claude Code through hooks (`but claude pre-tool`, `but claude post-tool`, `but claude stop`) that automatically manage commits during AI-assisted development sessions.
+
+**Key benefits:**
+- Auto-assigns changes to appropriate branches
+- Generates commit messages from user prompts
+- Eliminates manual `but commit` during sessions
+
+For detailed configuration and setup instructions, see `references/hooks.md`.
 
 ---
 
