@@ -25,6 +25,19 @@ Safe git history manipulation using the GitButler CLI (`but`).
 - ⏪ **Undo any operation** - `but undo` / `but restore`
 - 🌿 **Virtual branches** - Work on multiple features simultaneously
 
+**Slash Commands:**
+
+| Command | Description |
+|---------|-------------|
+| `/gitbutler:absorb` | Auto-amend changes into correct commits |
+| `/gitbutler:commit` | Commit changes to virtual branch |
+| `/gitbutler:squash` | Squash commits together |
+| `/gitbutler:fix-msg` | Edit a commit message |
+| `/gitbutler:branch` | Manage virtual branches |
+| `/gitbutler:move` | Move file/commit to another branch |
+| `/gitbutler:checkpoint` | Create named recovery checkpoint |
+| `/gitbutler:undo` | Undo last GitButler operation |
+
 **Auto-detection:** When on a `gitbutler/workspace` branch, Claude will automatically suggest `but` commands instead of raw git.
 
 [View GitButler Skill Documentation](./plugins/gitbutler/skills/gitbutler/SKILL.md)

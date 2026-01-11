@@ -44,6 +44,21 @@ Once installed, Claude will automatically use GitButler commands when:
 - You need to undo git operations
 - You're working with virtual branches
 
+### Slash Commands
+
+The plugin provides these commands for common workflows:
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `/gitbutler:absorb` | Auto-amend changes into correct commits | `/gitbutler:absorb` |
+| `/gitbutler:commit` | Commit changes to virtual branch | `/gitbutler:commit fix login validation` |
+| `/gitbutler:squash` | Squash commits together | `/gitbutler:squash abc123 def456` |
+| `/gitbutler:fix-msg` | Edit a commit message | `/gitbutler:fix-msg abc123 "Better message"` |
+| `/gitbutler:branch` | Manage virtual branches | `/gitbutler:branch new feature-auth` |
+| `/gitbutler:move` | Move file/commit to another branch | `/gitbutler:move g0 feature-auth` |
+| `/gitbutler:checkpoint` | Create named recovery checkpoint | `/gitbutler:checkpoint before-refactor` |
+| `/gitbutler:undo` | Undo last GitButler operation | `/gitbutler:undo` |
+
 ### Example Prompts
 
 - "Squash the last 3 commits into one"
