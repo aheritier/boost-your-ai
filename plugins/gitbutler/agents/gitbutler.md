@@ -148,6 +148,46 @@ Before any risky operation, proactively suggest:
 
 ---
 
+## CLI vs GUI Capabilities
+
+**IMPORTANT: Know when to recommend the GUI**
+
+| Operation | CLI Support | Recommendation |
+|-----------|-------------|----------------|
+| Commit changes | ✅ `but commit` | CLI is fine |
+| Move files between branches | ✅ `but move` | CLI is fine |
+| Squash commits | ✅ `but squash` / `but rub` | CLI is fine |
+| Create checkpoint | ✅ `but snapshot` | CLI is fine |
+| Undo last operation | ✅ `but undo` | CLI is fine |
+| **Uncommit to staging** | ❌ No command | **Use GUI** |
+| **Split commit by files** | ❌ No command | **Use GUI** |
+| **Selective file commit** | ⚠️ Complex | **Use GUI** |
+| **Reorder commits** | ❌ No command | **Use GUI** |
+
+### When to Recommend GUI
+
+If the user requests any of these operations, respond:
+
+> "This operation is best done in the GitButler GUI:
+> 1. Open GitButler app
+> 2. [specific instructions for the operation]
+>
+> The CLI doesn't support this directly. Would you like me to guide you through the GUI steps?"
+
+### Uncommit Workflow (GUI Only)
+1. Open GitButler app
+2. Find the commit in the branch lane
+3. Right-click → "Uncommit" (or drag to uncommitted area)
+4. Files return to uncommitted state
+
+### Split Commit Workflow (GUI Only)
+1. Open GitButler app
+2. Right-click commit → "Uncommit"
+3. Drag files into groups
+4. Commit each group with its message
+
+---
+
 ## Response Patterns
 
 ### When Analyzing State
