@@ -8,12 +8,12 @@ git branch --show-current
 # If result is "gitbutler/workspace" → Use 'but' commands!
 ```
 
-| Command Type | On gitbutler/workspace |
-|--------------|------------------------|
-| Read-only (`git log`, `git diff`, `git show`) | ✅ Safe |
-| Has `but` equivalent (commit, rebase, reset) | ⚠️ Prefer `but` |
-| No `but` equivalent (cherry-pick, stash, tag) | ✅ Use `git` |
-| Destructive (`reset --hard`, `push --force`) | ⚠️ Create snapshot first |
+| Command Type                                  | On gitbutler/workspace   |
+| --------------------------------------------- | ------------------------ |
+| Read-only (`git log`, `git diff`, `git show`) | ✅ Safe                  |
+| Has `but` equivalent (commit, rebase, reset)  | ⚠️ Prefer `but`          |
+| No `but` equivalent (cherry-pick, stash, tag) | ✅ Use `git`             |
+| Destructive (`reset --hard`, `push --force`)  | ⚠️ Create snapshot first |
 
 ---
 
@@ -53,21 +53,21 @@ git remote add <name> <url>     # Add remote
 
 ## Quick Reference: Git → But
 
-| Git Command | But Command | Description |
-|------------|-------------|-------------|
-| `git status` | `but status` | View workspace state |
-| `git log` | `but status` | See branch commits (visual) |
-| `git reflog` | `but oplog` | Operation history (more powerful) |
-| `git checkout -b` | `but branch new <name>` | Create new branch |
-| `git add <file>` | `but rub <file> <branch>` | Assign file to branch |
-| `git commit -m` | `but commit <branch> -m` | Commit to branch |
-| `git commit --amend` | `but rub <file> <commit>` | Amend file to commit |
-| `git rebase -i` (squash) | `but rub <commit1> <commit2>` | Squash commits |
-| `git rebase -i` (reword) | `but describe <commit> -m` | Edit commit message |
-| `git reset --hard` | `but restore <sha>` | Restore to snapshot |
-| N/A | `but undo` | Undo last operation |
-| N/A | `but snapshot -m` | Create named checkpoint |
-| N/A | `but absorb` | Auto-amend to correct commit |
+| Git Command              | But Command                   | Description                       |
+| ------------------------ | ----------------------------- | --------------------------------- |
+| `git status`             | `but status`                  | View workspace state              |
+| `git log`                | `but status`                  | See branch commits (visual)       |
+| `git reflog`             | `but oplog`                   | Operation history (more powerful) |
+| `git checkout -b`        | `but branch new <name>`       | Create new branch                 |
+| `git add <file>`         | `but rub <file> <branch>`     | Assign file to branch             |
+| `git commit -m`          | `but commit <branch> -m`      | Commit to branch                  |
+| `git commit --amend`     | `but rub <file> <commit>`     | Amend file to commit              |
+| `git rebase -i` (squash) | `but rub <commit1> <commit2>` | Squash commits                    |
+| `git rebase -i` (reword) | `but reword <commit> -m`      | Edit commit message               |
+| `git reset --hard`       | `but restore <sha>`           | Restore to snapshot               |
+| N/A                      | `but undo`                    | Undo last operation               |
+| N/A                      | `but oplog snapshot -m`       | Create named checkpoint           |
+| N/A                      | `but absorb`                  | Auto-amend to correct commit      |
 
 ---
 
@@ -127,12 +127,12 @@ but new <position>
 
 The `rub` command combines two entities based on their types:
 
-| Source | Target | Operation |
-|--------|--------|-----------|
-| File | Branch | **Assign** file to branch |
-| File | Commit | **Amend** file into commit |
+| Source | Target | Operation                   |
+| ------ | ------ | --------------------------- |
+| File   | Branch | **Assign** file to branch   |
+| File   | Commit | **Amend** file into commit  |
 | Commit | Commit | **Squash** commits together |
-| Commit | Branch | **Move** commit to branch |
+| Commit | Branch | **Move** commit to branch   |
 
 ```bash
 # Assign file to branch
@@ -154,10 +154,10 @@ but rub <commit-sha> <branch-id>
 
 ```bash
 # Edit commit message
-but describe <commit-sha> -m "new message"
+but reword <commit-sha> -m "new message"
 
 # Rename branch
-but describe <branch-id> -m "new-branch-name"
+but reword <branch-id> -m "new-branch-name"
 
 # Auto-amend changes to correct commits
 but absorb
@@ -175,7 +175,7 @@ but absorb <file-id>
 but undo
 
 # Create named snapshot/checkpoint
-but snapshot -m "description"
+but oplog snapshot -m "description"
 
 # Restore to specific snapshot
 but restore <oplog-sha>
@@ -195,6 +195,7 @@ When you run `but status`, changes show IDs like `g0`, `h0`, `al`, `ut`:
 - Use these IDs with `but rub`, `but absorb`, etc.
 
 Example:
+
 ```
 ╭┄00 [Unassigned Changes]
 ┊   g0 M calculator.py    ← Use 'g0' to reference this file
@@ -207,13 +208,13 @@ Example:
 
 ## Status Symbols
 
-| Symbol | Meaning |
-|--------|---------|
-| `A` | Added (new file) |
-| `M` | Modified |
-| `D` | Deleted |
-| `🔒` | File has dependency to specific commit |
-| `●` | Commit |
+| Symbol | Meaning                                |
+| ------ | -------------------------------------- |
+| `A`    | Added (new file)                       |
+| `M`    | Modified                               |
+| `D`    | Deleted                                |
+| `🔒`   | File has dependency to specific commit |
+| `●`    | Commit                                 |
 
 ---
 
@@ -245,13 +246,15 @@ but commit ut -m "Feature B" --only
 ## Common Workflows
 
 ### Squash Commits
+
 ```bash
 but status                        # Get SHAs
 but rub <source> <target>         # Squash
-but describe <new-sha> -m "Msg"   # Update message
+but reword <new-sha> -m "Msg"   # Update message
 ```
 
 ### Auto-Amend (absorb)
+
 ```bash
 # Edit file, then:
 but status                        # Look for 🔒 indicator
@@ -259,6 +262,7 @@ but absorb                        # Auto-amend to correct commit
 ```
 
 ### Time Travel
+
 ```bash
 but oplog                         # See all snapshots
 but restore <sha> --force         # Go back
@@ -270,7 +274,7 @@ but restore <sha> --force         # Go back
 
 1. **Always check `but status` first** to get current IDs
 2. **IDs change after operations** - refresh with `but status`
-3. **Create snapshots before risky operations**: `but snapshot -m "before cleanup"`
+3. **Create snapshots before risky operations**: `but oplog snapshot -m "before cleanup"`
 4. **Use `but oplog`** to see what you can restore to
 5. **Virtual branches work simultaneously** - no need to switch!
 6. **Use `--only` flag** when committing to avoid including unassigned changes

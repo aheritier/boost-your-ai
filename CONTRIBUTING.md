@@ -26,12 +26,14 @@ Be respectful, inclusive, and constructive. We're all here to learn and build gr
 ### Setup
 
 1. Fork and clone the repository:
+
    ```bash
    git clone https://github.com/YOUR-USERNAME/boost-your-ai.git
    cd boost-your-ai
    ```
 
 2. Initialize GitButler (optional but recommended):
+
    ```bash
    but
    ```
@@ -61,7 +63,7 @@ but rub <file-id> my-feature
 but commit my-feature -m "feat(plugin): add new feature"
 
 # Create checkpoint before risky operations
-but snapshot -m "before-refactor"
+but oplog snapshot -m "before-refactor"
 
 # Undo if something goes wrong
 but undo
@@ -92,16 +94,16 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/) for clear
 
 ### Types
 
-| Type | Description | Example |
-|------|-------------|---------|
-| `feat` | New feature | `feat(gitbutler): add checkpoint command` |
-| `fix` | Bug fix | `fix(commands): correct argument parsing` |
-| `docs` | Documentation | `docs: update installation guide` |
-| `style` | Formatting | `style: fix markdown linting issues` |
+| Type       | Description        | Example                                         |
+| ---------- | ------------------ | ----------------------------------------------- |
+| `feat`     | New feature        | `feat(gitbutler): add checkpoint command`       |
+| `fix`      | Bug fix            | `fix(commands): correct argument parsing`       |
+| `docs`     | Documentation      | `docs: update installation guide`               |
+| `style`    | Formatting         | `style: fix markdown linting issues`            |
 | `refactor` | Code restructuring | `refactor(skills): simplify SKILL.md structure` |
-| `perf` | Performance | `perf(commands): reduce status check calls` |
-| `test` | Testing | `test(gitbutler): add absorb command tests` |
-| `chore` | Maintenance | `chore: update dependencies` |
+| `perf`     | Performance        | `perf(commands): reduce status check calls`     |
+| `test`     | Testing            | `test(gitbutler): add absorb command tests`     |
+| `chore`    | Maintenance        | `chore: update dependencies`                    |
 
 ### Scopes
 
@@ -116,11 +118,13 @@ Use the plugin name or component:
 ### Examples
 
 **Simple feature:**
+
 ```
 feat(gitbutler): add branch management command
 ```
 
 **Bug fix with details:**
+
 ```
 fix(gitbutler): correct workspace detection
 
@@ -132,6 +136,7 @@ Fixes #42
 ```
 
 **Breaking change:**
+
 ```
 feat(gitbutler)!: rename absorb to smart-amend
 
@@ -154,9 +159,11 @@ When creating a PR, include:
 
 ```markdown
 ## Summary
+
 Brief description of changes
 
 ## Type of Change
+
 - [ ] New plugin
 - [ ] New command
 - [ ] New skill
@@ -165,9 +172,11 @@ Brief description of changes
 - [ ] Other (describe)
 
 ## Testing
+
 How did you test these changes?
 
 ## Checklist
+
 - [ ] Follows conventional commits
 - [ ] Documentation updated
 - [ ] Commands tested locally
@@ -185,6 +194,7 @@ How did you test these changes?
 ### Creating a New Plugin
 
 1. **Create directory structure:**
+
    ```
    plugins/my-plugin/
    ├── .claude-plugin/
@@ -195,6 +205,7 @@ How did you test these changes?
    ```
 
 2. **Add plugin manifest** (`plugin.json`):
+
    ```json
    {
      "name": "my-plugin",

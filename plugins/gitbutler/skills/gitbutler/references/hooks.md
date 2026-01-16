@@ -16,11 +16,11 @@ GitButler's Claude Code hooks automate the workflow of committing changes during
 
 Hooks can be configured at different levels:
 
-| Location | Scope | Committed |
-|----------|-------|-----------|
-| `~/.claude/settings.json` | All projects | N/A (user home) |
-| `.claude/settings.json` | This project | ✅ Yes (team shares) |
-| `.claude/settings.local.json` | This project | ❌ No (personal) |
+| Location                      | Scope        | Committed            |
+| ----------------------------- | ------------ | -------------------- |
+| `~/.claude/settings.json`     | All projects | N/A (user home)      |
+| `.claude/settings.json`       | This project | ✅ Yes (team shares) |
+| `.claude/settings.local.json` | This project | ❌ No (personal)     |
 
 ## Full Configuration
 
@@ -73,6 +73,7 @@ Add this to your chosen settings file:
 **Trigger**: Before Claude executes Edit, MultiEdit, or Write tools
 
 **What it does**:
+
 - Captures the current workspace state
 - Records which files are about to be modified
 - Stores context for commit message generation
@@ -84,6 +85,7 @@ Add this to your chosen settings file:
 **Trigger**: After Claude completes Edit, MultiEdit, or Write tools
 
 **What it does**:
+
 - Detects which files were modified
 - Auto-assigns changes to the current virtual branch
 - Prepares changes for eventual commit
@@ -95,6 +97,7 @@ Add this to your chosen settings file:
 **Trigger**: When a Claude session/agent stops
 
 **What it does**:
+
 - Reviews all pending changes from the session
 - Generates commit message from user prompts and context
 - Commits changes with descriptive message
@@ -121,6 +124,7 @@ but --version
 ### 3. Create/Update Settings File
 
 For user-level (all projects):
+
 ```bash
 # Create directory if needed
 mkdir -p ~/.claude
@@ -130,6 +134,7 @@ nano ~/.claude/settings.json
 ```
 
 For project-level:
+
 ```bash
 # Create directory if needed
 mkdir -p .claude
@@ -201,7 +206,7 @@ If you want hooks but your team doesn't use GitButler, use `.claude/settings.loc
 ### 3. Create Snapshots Before Experiments
 
 ```bash
-but snapshot -m "Before experimental changes"
+but oplog snapshot -m "Before experimental changes"
 ```
 
 Then if hooks create unwanted commits, you can restore:

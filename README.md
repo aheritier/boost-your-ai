@@ -19,24 +19,25 @@ Then restart Claude Code to load the skills.
 Safe git history manipulation using the GitButler CLI (`but`).
 
 **Features:**
+
 - 🔄 **Squash commits** - `but rub <source> <target>`
-- ✏️ **Edit commit messages** - `but describe <sha> -m "new message"`
+- ✏️ **Edit commit messages** - `but reword <sha> -m "new message"`
 - 🎯 **Auto-amend to correct commit** - `but absorb`
 - ⏪ **Undo any operation** - `but undo` / `but restore`
 - 🌿 **Virtual branches** - Work on multiple features simultaneously
 
 **Slash Commands:**
 
-| Command | Description |
-|---------|-------------|
-| `/gitbutler:absorb` | Auto-amend changes into correct commits |
-| `/gitbutler:commit` | Commit changes to virtual branch |
-| `/gitbutler:squash` | Squash commits together |
-| `/gitbutler:fix-msg` | Edit a commit message |
-| `/gitbutler:branch` | Manage virtual branches |
-| `/gitbutler:move` | Move file/commit to another branch |
-| `/gitbutler:checkpoint` | Create named recovery checkpoint |
-| `/gitbutler:undo` | Undo last GitButler operation |
+| Command                 | Description                             |
+| ----------------------- | --------------------------------------- |
+| `/gitbutler:absorb`     | Auto-amend changes into correct commits |
+| `/gitbutler:commit`     | Commit changes to virtual branch        |
+| `/gitbutler:squash`     | Squash commits together                 |
+| `/gitbutler:fix-msg`    | Edit a commit message                   |
+| `/gitbutler:branch`     | Manage virtual branches                 |
+| `/gitbutler:move`       | Move file/commit to another branch      |
+| `/gitbutler:checkpoint` | Create named recovery checkpoint        |
+| `/gitbutler:undo`       | Undo last GitButler operation           |
 
 **Auto-detection:** When on a `gitbutler/workspace` branch, Claude will automatically suggest `but` commands instead of raw git.
 
@@ -47,7 +48,7 @@ Safe git history manipulation using the GitButler CLI (`but`).
 Once installed, Claude will automatically use these skills when relevant. For example:
 
 - "Help me squash these commits" → Uses GitButler skill
-- "Fix my commit message" → Suggests `but describe`
+- "Fix my commit message" → Suggests `but reword`
 - "Undo my last operation" → Recommends `but undo`
 
 ## Contributing

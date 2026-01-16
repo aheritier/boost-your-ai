@@ -67,6 +67,7 @@ Instructions for Claude to execute this command...
 ```
 
 **Key principles:**
+
 - Commands are instructions FOR Claude, not messages TO users
 - Use `!`backticks`` for inline bash execution to gather context
 - Use `$ARGUMENTS`, `$1`, `$2` for argument interpolation
@@ -88,6 +89,7 @@ Reference documentation, workflows, best practices...
 ```
 
 **Key principles:**
+
 - Skills provide knowledge/guidance, not executable actions
 - Use `references/` subdirectory for detailed documentation
 - Include practical examples and common patterns
@@ -95,12 +97,14 @@ Reference documentation, workflows, best practices...
 ## Code Style
 
 ### Markdown Files
+
 - Use ATX headers (`#`, `##`, `###`)
 - Use fenced code blocks with language identifiers
 - Keep lines under 100 characters when practical
 - Use tables for structured data
 
 ### YAML Frontmatter
+
 - Keep descriptions concise (under 60 characters)
 - Use lowercase for field names
 - Quote strings containing special characters
@@ -113,7 +117,7 @@ This project uses GitButler for version control. When in a `gitbutler/workspace`
 - Use `but commit` instead of `git commit`
 - Use `but absorb` to auto-amend changes
 - Use `but rub` to move files/commits between branches
-- Create checkpoints before risky operations: `but snapshot -m "name"`
+- Create checkpoints before risky operations: `but oplog snapshot -m "name"`
 
 ## Commit Convention
 
@@ -131,28 +135,28 @@ This project follows the [Conventional Commits](https://www.conventionalcommits.
 
 ### Types
 
-| Type | Description |
-|------|-------------|
-| `feat` | New feature or capability |
-| `fix` | Bug fix |
-| `docs` | Documentation changes only |
-| `style` | Formatting, missing semicolons, etc. (no code change) |
+| Type       | Description                                             |
+| ---------- | ------------------------------------------------------- |
+| `feat`     | New feature or capability                               |
+| `fix`      | Bug fix                                                 |
+| `docs`     | Documentation changes only                              |
+| `style`    | Formatting, missing semicolons, etc. (no code change)   |
 | `refactor` | Code change that neither fixes a bug nor adds a feature |
-| `perf` | Performance improvement |
-| `test` | Adding or updating tests |
-| `chore` | Build process, dependencies, or tooling changes |
+| `perf`     | Performance improvement                                 |
+| `test`     | Adding or updating tests                                |
+| `chore`    | Build process, dependencies, or tooling changes         |
 
 ### Scopes
 
 For this project, use these scopes:
 
-| Scope | When to use |
-|-------|-------------|
-| `gitbutler` | Changes to the gitbutler plugin |
-| `<plugin-name>` | Changes to a specific plugin |
-| `commands` | Changes to command files |
-| `skills` | Changes to skill files |
-| `docs` | Documentation changes |
+| Scope           | When to use                     |
+| --------------- | ------------------------------- |
+| `gitbutler`     | Changes to the gitbutler plugin |
+| `<plugin-name>` | Changes to a specific plugin    |
+| `commands`      | Changes to command files        |
+| `skills`        | Changes to skill files          |
+| `docs`          | Documentation changes           |
 
 ### Examples
 
@@ -177,6 +181,7 @@ BREAKING CHANGE: The /gitbutler:commit command has been renamed to /gitbutler:sm
 ## Testing Plugins
 
 1. Install the plugin locally:
+
    ```bash
    claude mcp add-plugin /path/to/plugins/<plugin-name>
    ```
@@ -192,6 +197,7 @@ BREAKING CHANGE: The /gitbutler:commit command has been renamed to /gitbutler:sm
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines.
 
 **Quick start:**
+
 1. Create a new virtual branch: `but branch new feature-name`
 2. Make changes and assign to branch
 3. Commit using conventional commits format (see above)
@@ -200,9 +206,11 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines.
 ## Available Plugins
 
 ### GitButler (`gitbutler`)
+
 Safe git history manipulation using GitButler CLI.
 
 **Commands:**
+
 - `/gitbutler:absorb` - Auto-amend changes into correct commits
 - `/gitbutler:commit` - Commit to virtual branch
 - `/gitbutler:squash` - Combine commits
