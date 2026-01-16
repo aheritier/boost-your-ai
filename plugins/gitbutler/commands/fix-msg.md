@@ -9,6 +9,7 @@ allowed-tools: Bash(but:*), Bash(git:*)
 Edit a commit message. GitButler handles the rebase automatically.
 
 **Arguments**: $ARGUMENTS
+
 - First argument ($1): Commit SHA to edit
 - Remaining arguments: New commit message (wrap in quotes if it contains spaces)
 
@@ -21,6 +22,7 @@ Current branch: !`git branch --show-current`
 ```
 
 If the branch is NOT `gitbutler/workspace`, STOP and inform the user:
+
 > "This directory is not a GitButler workspace. Please run `but` to initialize GitButler first, or use standard git commands."
 
 ## Current Commits
@@ -34,22 +36,24 @@ Show recent commits to help identify the target:
 ## Fix Message Workflow
 
 1. **Identify target commit**:
+
    - If SHA provided ($1), use that commit
    - If no SHA provided, show the commit list and ask user which commit to edit
 
 2. **Get new message**:
+
    - If message provided in arguments, use that
    - If no message provided, ask user for the new message
    - Suggest improvements if the current message is unclear
 
-3. **Execute change**: Run `but describe <sha> -m "<new-message>"`
+3. **Execute change**: Run `but reword <sha> -m "<new-message>"`
 
 4. **Confirm result**: Show the updated commit with new message
 
 ## Command Syntax
 
 ```bash
-but describe <sha> -m "New commit message"
+but reword <sha> -m "New commit message"
 ```
 
 ## Tips

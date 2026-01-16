@@ -9,6 +9,7 @@ allowed-tools: Bash(but:*), Bash(git:*)
 Move files or commits between virtual branches using the `rub` multi-tool.
 
 **Arguments**: $ARGUMENTS
+
 - First argument ($1): Source ID (file ID like `g0`, `g1` or commit SHA)
 - Second argument ($2): Target branch name
 
@@ -21,14 +22,17 @@ Current branch: !`git branch --show-current`
 ```
 
 If the branch is NOT `gitbutler/workspace`, STOP and inform the user:
+
 > "This directory is not a GitButler workspace. Please run `but` to initialize GitButler first, or use standard git commands."
 
 ## Safety Reminder
 
 **Before moving commits**, consider creating a checkpoint:
+
 ```bash
-but snapshot -m "before-move"
+but oplog snapshot -m "before-move"
 ```
+
 Or use `/gitbutler:checkpoint before-move` to create a named restore point.
 
 ## Current Status
@@ -42,6 +46,7 @@ Show workspace with file IDs and branch names:
 ## Understanding IDs
 
 In the status output above:
+
 - **File IDs**: Short identifiers like `g0`, `g1`, `g2` represent uncommitted file changes
 - **Commit SHAs**: Full or abbreviated commit hashes
 - **Branch names**: The virtual branch identifiers (often shown as 2-letter codes like `al`, `ut`)
@@ -49,10 +54,12 @@ In the status output above:
 ## Move Workflow
 
 1. **Identify source and target**:
+
    - If both provided ($1 and $2), proceed
    - If missing, show the status and ask user to specify
 
 2. **Determine move type**:
+
    - File → Branch: Reassign uncommitted file to different branch
    - Commit → Branch: Move entire commit to different branch
 
@@ -74,12 +81,12 @@ but rub abc123 ut
 
 `rub` behavior depends on source and target types:
 
-| Source | Target | Result |
-|--------|--------|--------|
+| Source  | Target | Result                  |
+| ------- | ------ | ----------------------- |
 | File ID | Branch | Reassign file to branch |
-| File ID | Commit | Amend file into commit |
-| Commit | Commit | Squash commits |
-| Commit | Branch | Move commit to branch |
+| File ID | Commit | Amend file into commit  |
+| Commit  | Commit | Squash commits          |
+| Commit  | Branch | Move commit to branch   |
 
 ## Tips
 
