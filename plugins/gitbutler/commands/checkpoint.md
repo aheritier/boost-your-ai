@@ -19,6 +19,7 @@ Current branch: !`git branch --show-current`
 ```
 
 If the branch is NOT `gitbutler/workspace`, STOP and inform the user:
+
 > "This directory is not a GitButler workspace. Please run `but` to initialize GitButler first, or use standard git commands."
 
 ## Current Status
@@ -32,10 +33,11 @@ Show workspace state that will be checkpointed:
 ## Checkpoint Workflow
 
 1. **Determine checkpoint name**:
+
    - If name provided ($ARGUMENTS), use that
    - If no name provided, generate a descriptive name like "before-refactor" or "working-state"
 
-2. **Create snapshot**: Run `but snapshot -m "<name>"`
+2. **Create snapshot**: Run `but oplog snapshot -m "<name>"`
 
 3. **Confirm creation**: Show the oplog entry for reference
 
@@ -44,12 +46,13 @@ Show workspace state that will be checkpointed:
 ## Command Syntax
 
 ```bash
-but snapshot -m "checkpoint-name"
+but oplog snapshot -m "checkpoint-name"
 ```
 
 ## Viewing Checkpoints
 
 To see available checkpoints:
+
 ```bash
 but oplog
 ```
@@ -57,6 +60,7 @@ but oplog
 ## Restoring a Checkpoint
 
 To restore to a checkpoint:
+
 ```bash
 but restore <sha> --force
 ```
