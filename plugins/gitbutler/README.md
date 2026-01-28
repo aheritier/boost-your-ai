@@ -2,6 +2,8 @@
 
 A Claude Code skill that provides guidance for using [GitButler CLI](https://docs.gitbutler.com/cli) (`but`) for safe git history manipulation.
 
+**DEPRECATED**: GitButler provides now (Nightly 0.5.1840+) `but skill install` command to install an up-to-date version of the skill aligned with your GitButler version
+
 ## Overview
 
 This skill teaches Claude how to use GitButler instead of raw git commands when working in a GitButler-managed repository. GitButler provides:
