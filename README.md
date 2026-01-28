@@ -16,6 +16,8 @@ Then restart Claude Code to load the skills.
 
 ### GitButler (`gitbutler`)
 
+**DEPRECATED**: GitButler provides now (Nightly 0.5.1840+) `but skill install` command to install an up-to-date version of the skill aligned with your GitButler version
+
 Safe git history manipulation using the GitButler CLI (`but`).
 
 **Features:**
