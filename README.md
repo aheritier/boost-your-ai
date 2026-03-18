@@ -45,6 +45,21 @@ Safe git history manipulation using the GitButler CLI (`but`).
 
 [View GitButler Skill Documentation](./plugins/gitbutler/skills/gitbutler/SKILL.md)
 
+### jj-lsp (`jj-lsp`)
+
+Lightweight Java language server powered by [jj-language-server](https://github.com/jdubois/jj-language-server). No JVM required — runs on Node.js, starts ~9x faster and uses ~7.5x less memory than Eclipse JDT.LS.
+
+**Prerequisites:** Node.js >= 20, install via `npm install -g jj-language-server`
+
+**Features:**
+
+- Go to definition, find references, auto-completion
+- Diagnostics, code formatting, rename symbol
+- Code actions, semantic tokens
+- Maven, Gradle, Lombok, and Spring Boot support
+
+[View jj-lsp Plugin Documentation](./plugins/jj-lsp/README.md)
+
 ## Usage
 
 Once installed, Claude will automatically use these skills when relevant. For example:
