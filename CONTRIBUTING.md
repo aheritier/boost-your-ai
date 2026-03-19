@@ -20,7 +20,6 @@ Be respectful, inclusive, and constructive. We're all here to learn and build gr
 ### Prerequisites
 
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed
-- [GitButler CLI](https://docs.gitbutler.com/cli) (recommended for development)
 - Git
 
 ### Setup
@@ -32,44 +31,12 @@ Be respectful, inclusive, and constructive. We're all here to learn and build gr
    cd boost-your-ai
    ```
 
-2. Initialize GitButler (optional but recommended):
-
-   ```bash
-   but
-   ```
-
-3. Install the marketplace locally for testing:
+2. Install the marketplace locally for testing:
    ```bash
    claude mcp add-plugin /path/to/boost-your-ai
    ```
 
 ## Development Workflow
-
-### Using GitButler (Recommended)
-
-GitButler enables working on multiple features simultaneously:
-
-```bash
-# Create a new virtual branch
-but branch new my-feature
-
-# Check status
-but status
-
-# Assign files to your branch
-but rub <file-id> my-feature
-
-# Commit changes
-but commit my-feature -m "feat(plugin): add new feature"
-
-# Create checkpoint before risky operations
-but oplog snapshot -m "before-refactor"
-
-# Undo if something goes wrong
-but undo
-```
-
-### Using Standard Git
 
 ```bash
 git checkout -b my-feature
@@ -96,41 +63,39 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/) for clear
 
 | Type       | Description        | Example                                         |
 | ---------- | ------------------ | ----------------------------------------------- |
-| `feat`     | New feature        | `feat(gitbutler): add checkpoint command`       |
+| `feat`     | New feature        | `feat(jj-lsp): add hover documentation`        |
 | `fix`      | Bug fix            | `fix(commands): correct argument parsing`       |
 | `docs`     | Documentation      | `docs: update installation guide`               |
 | `style`    | Formatting         | `style: fix markdown linting issues`            |
 | `refactor` | Code restructuring | `refactor(skills): simplify SKILL.md structure` |
 | `perf`     | Performance        | `perf(commands): reduce status check calls`     |
-| `test`     | Testing            | `test(gitbutler): add absorb command tests`     |
+| `test`     | Testing            | `test(jj-lsp): add startup timeout tests`      |
 | `chore`    | Maintenance        | `chore: update dependencies`                    |
 
 ### Scopes
 
 Use the plugin name or component:
 
-- `gitbutler` - GitButler plugin changes
+- `<plugin-name>` - Plugin changes (e.g. `jj-lsp`)
 - `commands` - Command file changes
 - `skills` - Skill file changes
 - `docs` - Documentation changes
-- `<plugin-name>` - Other plugin changes
 
 ### Examples
 
 **Simple feature:**
 
 ```
-feat(gitbutler): add branch management command
+feat(jj-lsp): add hover documentation support
 ```
 
 **Bug fix with details:**
 
 ```
-fix(gitbutler): correct workspace detection
+fix(jj-lsp): correct startup timeout configuration
 
-The pre-flight check was failing on Windows due to
-path separator differences. Now uses platform-agnostic
-path handling.
+The startupTimeout value was being ignored on slow machines.
+Now correctly waits for the language server to initialize.
 
 Fixes #42
 ```
@@ -138,10 +103,10 @@ Fixes #42
 **Breaking change:**
 
 ```
-feat(gitbutler)!: rename absorb to smart-amend
+feat(jj-lsp)!: rename startup-timeout to startupTimeout
 
-BREAKING CHANGE: The /gitbutler:absorb command has been
-renamed to /gitbutler:smart-amend for clarity.
+BREAKING CHANGE: The startup-timeout config key has been
+renamed to startupTimeout for consistency.
 ```
 
 ## Pull Request Process
