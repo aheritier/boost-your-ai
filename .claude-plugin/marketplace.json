@@ -15,6 +15,7 @@
       "source": "./plugins/jj-lsp",
       "category": "development",
       "homepage": "https://github.com/aheritier/boost-your-ai/tree/main/plugins/jj-lsp",
+      "strict": false,
       "lspServers": {
         "jj-language-server": {
           "command": "jj-language-server",
