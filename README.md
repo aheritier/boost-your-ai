@@ -7,7 +7,7 @@ A Claude Code skill marketplace for boosting AI-assisted development workflows.
 Add this marketplace to Claude Code:
 
 ```bash
-/plugin add https://github.com/aheritier/boost-your-ai
+/plugin marketplace add aheritier/boost-your-ai
 ```
 
 Then restart Claude Code to load the skills.
