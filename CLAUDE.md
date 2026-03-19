@@ -111,13 +111,12 @@ Reference documentation, workflows, best practices...
 
 ## Git Workflow
 
-This project uses GitButler for version control. When in a `gitbutler/workspace` branch:
+This project uses standard git for version control:
 
-- Use `but status` instead of `git status`
-- Use `but commit` instead of `git commit`
-- Use `but absorb` to auto-amend changes
-- Use `but rub` to move files/commits between branches
-- Create checkpoints before risky operations: `but oplog snapshot -m "name"`
+- Use `git status` to check working tree
+- Use `git commit` to commit changes
+- Use `git checkout -b <branch>` to create feature branches
+- Use `git push origin <branch>` to push changes
 
 ## Commit Convention
 
@@ -150,19 +149,18 @@ This project follows the [Conventional Commits](https://www.conventionalcommits.
 
 For this project, use these scopes:
 
-| Scope           | When to use                     |
-| --------------- | ------------------------------- |
-| `gitbutler`     | Changes to the gitbutler plugin |
-| `<plugin-name>` | Changes to a specific plugin    |
-| `commands`      | Changes to command files        |
-| `skills`        | Changes to skill files          |
-| `docs`          | Documentation changes           |
+| Scope           | When to use                  |
+| --------------- | ---------------------------- |
+| `<plugin-name>` | Changes to a specific plugin |
+| `commands`      | Changes to command files     |
+| `skills`        | Changes to skill files       |
+| `docs`          | Documentation changes        |
 
 ### Examples
 
 ```
-feat(gitbutler): add squash command for combining commits
-fix(gitbutler): correct branch detection in absorb command
+feat(jj-lsp): add go-to-definition support
+fix(jj-lsp): correct startup timeout configuration
 docs: update README with installation instructions
 chore: add .gitignore for build artifacts
 refactor(commands): extract common pre-flight check pattern
@@ -173,9 +171,9 @@ refactor(commands): extract common pre-flight check pattern
 For breaking changes, add `!` after the type/scope or add `BREAKING CHANGE:` in the footer:
 
 ```
-feat(gitbutler)!: rename /commit to /smart-commit
+feat(jj-lsp)!: rename startup-timeout to startupTimeout
 
-BREAKING CHANGE: The /gitbutler:commit command has been renamed to /gitbutler:smart-commit
+BREAKING CHANGE: The startup-timeout config key has been renamed to startupTimeout
 ```
 
 ## Testing Plugins
@@ -198,24 +196,13 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines.
 
 **Quick start:**
 
-1. Create a new virtual branch: `but branch new feature-name`
-2. Make changes and assign to branch
+1. Create a feature branch: `git checkout -b feature-name`
+2. Make changes
 3. Commit using conventional commits format (see above)
 4. Push and create PR
 
 ## Available Plugins
 
-### GitButler (`gitbutler`)
+### jj-lsp (`jj-lsp`)
 
-Safe git history manipulation using GitButler CLI.
-
-**Commands:**
-
-- `/gitbutler:absorb` - Auto-amend changes into correct commits
-- `/gitbutler:commit` - Commit to virtual branch
-- `/gitbutler:squash` - Combine commits
-- `/gitbutler:fix-msg` - Edit commit message
-- `/gitbutler:branch` - Manage virtual branches
-- `/gitbutler:move` - Move files/commits between branches
-- `/gitbutler:checkpoint` - Create recovery checkpoint
-- `/gitbutler:undo` - Undo last operation
+Lightweight Java language server powered by jj-language-server. No JVM required.

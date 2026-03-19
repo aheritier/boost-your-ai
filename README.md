@@ -14,37 +14,6 @@ Then restart Claude Code to load the skills.
 
 ## Available Skills
 
-### GitButler (`gitbutler`)
-
-**DEPRECATED**: GitButler provides now (Nightly 0.5.1840+) `but skill install` command to install an up-to-date version of the skill aligned with your GitButler version
-
-Safe git history manipulation using the GitButler CLI (`but`).
-
-**Features:**
-
-- 🔄 **Squash commits** - `but rub <source> <target>`
-- ✏️ **Edit commit messages** - `but reword <sha> -m "new message"`
-- 🎯 **Auto-amend to correct commit** - `but absorb`
-- ⏪ **Undo any operation** - `but undo` / `but restore`
-- 🌿 **Virtual branches** - Work on multiple features simultaneously
-
-**Slash Commands:**
-
-| Command                 | Description                             |
-| ----------------------- | --------------------------------------- |
-| `/gitbutler:absorb`     | Auto-amend changes into correct commits |
-| `/gitbutler:commit`     | Commit changes to virtual branch        |
-| `/gitbutler:squash`     | Squash commits together                 |
-| `/gitbutler:fix-msg`    | Edit a commit message                   |
-| `/gitbutler:branch`     | Manage virtual branches                 |
-| `/gitbutler:move`       | Move file/commit to another branch      |
-| `/gitbutler:checkpoint` | Create named recovery checkpoint        |
-| `/gitbutler:undo`       | Undo last GitButler operation           |
-
-**Auto-detection:** When on a `gitbutler/workspace` branch, Claude will automatically suggest `but` commands instead of raw git.
-
-[View GitButler Skill Documentation](./plugins/gitbutler/skills/gitbutler/SKILL.md)
-
 ### jj-lsp (`jj-lsp`)
 
 Lightweight Java language server powered by [jj-language-server](https://github.com/jdubois/jj-language-server). No JVM required — runs on Node.js, starts ~9x faster and uses ~7.5x less memory than Eclipse JDT.LS.
@@ -64,9 +33,9 @@ Lightweight Java language server powered by [jj-language-server](https://github.
 
 Once installed, Claude will automatically use these skills when relevant. For example:
 
-- "Help me squash these commits" → Uses GitButler skill
-- "Fix my commit message" → Suggests `but reword`
-- "Undo my last operation" → Recommends `but undo`
+- "Find all implementations of this interface" → Uses jj-lsp for Java code intelligence
+- "Go to definition of this class" → Triggers jj-language-server
+- "Show me all references to this method" → Uses lightweight Java LSP
 
 ## Contributing
 
