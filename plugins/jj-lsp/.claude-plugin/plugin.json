@@ -1,7 +1,7 @@
 {
   "name": "jj-lsp",
   "description": "Java language server (jj-language-server) for code intelligence - lightweight, no JVM required",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "Arnaud Héritier",
     "url": "https://github.com/aheritier"
