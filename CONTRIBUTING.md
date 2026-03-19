@@ -33,7 +33,7 @@ Be respectful, inclusive, and constructive. We're all here to learn and build gr
 
 2. Install the marketplace locally for testing:
    ```bash
-   claude mcp add-plugin /path/to/boost-your-ai
+   /plugin marketplace add ./boost-your-ai
    ```
 
 ## Development Workflow

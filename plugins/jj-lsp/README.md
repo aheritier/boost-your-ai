@@ -14,10 +14,11 @@ Java language server plugin powered by [jj-language-server](https://github.com/j
 npm install -g jj-language-server
 ```
 
-### 2. Install the plugin
+### 2. Add the marketplace and install the plugin
 
-```bash
-claude plugin add https://github.com/aheritier/boost-your-ai --plugin jj-lsp
+```
+/plugin marketplace add aheritier/boost-your-ai
+/plugin install jj-lsp@boost-your-ai
 ```
 
 ### 3. Restart Claude Code

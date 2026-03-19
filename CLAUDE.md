@@ -181,7 +181,8 @@ BREAKING CHANGE: The startup-timeout config key has been renamed to startupTimeo
 1. Install the plugin locally:
 
    ```bash
-   claude mcp add-plugin /path/to/plugins/<plugin-name>
+   /plugin marketplace add ./
+   /plugin install <plugin-name>@boost-your-ai
    ```
 
 2. Restart Claude Code to load changes
