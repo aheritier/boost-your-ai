@@ -1,0 +1,10 @@
+{
+  "jj-language-server": {
+    "command": "jj-language-server",
+    "args": ["--stdio"],
+    "extensionToLanguage": {
+      ".java": "java"
+    },
+    "startupTimeout": 10000
+  }
+}
